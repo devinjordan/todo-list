@@ -7,14 +7,18 @@ class Task {
   };
 
   changeContent(newContent) {
-    if (newContent == '') {
+    if (newContent === '') {
       throw Error('Content must not be a blank string.');
     }
     this.content = newContent;
   };
 
-  changeDate(newDate) {
-    this.dueDate.setDate(newDate);
+  changeFullDate(year, month, day) {
+    const newDate = new Date(year, month - 1, day);
+    if (newDate < Date.now()) {
+      throw Error('Date may not be in the past');
+    }
+    this.dueDate = newDate;
   }
 
   updatePriority(newPriority) {
@@ -31,11 +35,13 @@ class Task {
 
 
 const clean = new Task('Clean the house');
-clean.dueDate = 'Tomorrow';
 clean.status = false;
 
 console.log(clean);
 
 clean.markComplete();
+clean.changeFullDate(2025, 2, 20);
+clean.changeContent('Take out the trash');
+clean.updatePriority(2);
 
 console.log(clean);
