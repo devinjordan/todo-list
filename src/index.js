@@ -1,6 +1,6 @@
 class Task {
   constructor(description, dueDate = new Date(), priority = 0, status = false) {
-    this.Description = description;
+    this.description = description;
     this.dueDate = dueDate;
     this.priority = priority;
     this.status = status;
@@ -8,7 +8,7 @@ class Task {
 
   changeDescription(newDescription) {
     Validation.validateDescription(newDescription);
-    this.Description = newDescription;
+    this.description = newDescription;
   };
 
   changeFullDate(year, month, day) {
@@ -43,14 +43,35 @@ class Validation {
   };
 };
 
+class TodoList {
+  constructor() {
+    this.tasks = [];
+  };
 
-const clean = new Task('Clean the house');
+  addTask(description, dueDate, priority) {
+    const newTask = new Task(description, dueDate, priority);
+    this.tasks.push(newTask);
+  };
 
-console.log(clean);
+  removeTask(index) {
+    this.tasks.splice(index, 1);
+  };
 
-clean.markComplete();
-clean.changeFullDate(2025, 2, 20);
-clean.changeDescription('Take out the trash');
-clean.updatePriority(2);
+  listTasks() {
+    let taskList = [];
+    for (let i = 0; i < this.tasks.length; i++) {
+      taskList.push(this.tasks[i]);
+    };
 
-console.log(clean);
+    return taskList;
+  };
+};
+
+const myList = new TodoList();
+
+const work = myList.addTask('Do stuff', new Date(2026, 5, 21), 1);
+const play = myList.addTask('Do stuff', new Date(2026, 5, 21), 1);
+const due = myList.addTask('Do stuff', new Date(2026, 5, 21), 1);
+const today = myList.addTask('Do stuff', new Date(2026, 5, 21), 1);
+
+console.table(myList.listTasks());
