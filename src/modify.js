@@ -1,8 +1,9 @@
-const validate = {
+const modifyTask = {
   description: function (description) {
     if (description === '') {
       throw Error('Include a description in the task.');
     };
+    return description;
   },
   date: function (year, month, day) {
     const date = new Date(year, month - 1, day);
@@ -14,4 +15,4 @@ const validate = {
   },
 };
 
-export { validate };
+export { modifyTask };
