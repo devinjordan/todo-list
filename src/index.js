@@ -20,11 +20,8 @@ class Task {
     this.priority = newPriority;
   };
 
-  markComplete() {
-    this.status = true;
-  };
-  markIncomplete() {
-    this.status = false;
+  toggleStatus() {
+    this.status = !this.status;
   };
 };
 
@@ -43,21 +40,20 @@ class Validation {
   };
 };
 
-class TodoList {
+class List {
   constructor() {
     this.tasks = [];
   };
 
-  addTask(description, dueDate, priority) {
-    const newTask = new Task(description, dueDate, priority);
-    this.tasks.push(newTask);
+  addTask(task) {
+    this.tasks.push(task);
   };
 
   removeTask(index) {
     this.tasks.splice(index, 1);
   };
 
-  listTasks() {
+  populate() {
     let taskList = [];
     for (let i = 0; i < this.tasks.length; i++) {
       taskList.push(this.tasks[i]);
@@ -67,11 +63,19 @@ class TodoList {
   };
 };
 
-const myList = new TodoList();
+const myList = new List();
 
-const work = myList.addTask('Do stuff', new Date(2026, 5, 21), 1);
-const play = myList.addTask('Do stuff', new Date(2026, 5, 21), 1);
-const due = myList.addTask('Do stuff', new Date(2026, 5, 21), 1);
-const today = myList.addTask('Do stuff', new Date(2026, 5, 21), 1);
+const work = new Task('Do stuff', new Date(2026, 5, 21), 1);
+const play = new Task('Do stuff', new Date(2026, 5, 21), 1);
+const due = new Task('Do stuff', new Date(2026, 5, 21), 1);
+const today = new Task('Do stuff', new Date(2026, 5, 21), 1);
 
-console.table(myList.listTasks());
+myList.addTask(work);
+myList.addTask(play);
+myList.addTask(due);
+myList.addTask(today);
+
+work.updatePriority(2);
+
+
+console.table(myList.populate());
