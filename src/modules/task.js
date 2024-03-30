@@ -3,8 +3,8 @@ const createTask = (description, dueDate = new Date(), priority = 0, status = fa
     description,
     dueDate,
     priority,
-    status
+    status,
   };
 };
 
-export { createTask };
+export default createTask;

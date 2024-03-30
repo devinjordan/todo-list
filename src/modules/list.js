@@ -17,4 +17,4 @@ const createList = (name = 'New List') => {
   };
 };
 
-export { createList };
+export default createList;

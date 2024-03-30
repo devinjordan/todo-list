@@ -1,23 +1,23 @@
-import { createList } from "./list"; 
-import { createTask } from "./task";
-import { modifyTask } from "./modify";
+import createList from "./modules/list.js"; 
+import createTask from "./modules/task.js";
 
 const myList = createList('My List');
 
-const work = createTask('Do stuff', new Date(2026, 5, 21), 1);
-const play = createTask('Do stuff', new Date(2026, 5, 21), 1);
-const due = createTask('Do stuff', new Date(2026, 5, 21), 1);
-const today = createTask('Do stuff', new Date(2026, 5, 21), 1);
+const work = createTask('Work', new Date(2026, 5, 21), 1);
+const play = createTask('Play', new Date(2026, 5, 21), 1);
+const due = createTask('Due', new Date(2026, 5, 21), 1);
+const today = createTask('Today', new Date(2026, 5, 21), 1);
+
+
 
 myList.addTask(work);
 myList.addTask(play);
 myList.addTask(due);
 myList.addTask(today);
 
-work.updatePriority(2);
+console.log(myList.name);
+console.table(myList.taskList);
 
-
-console.table(myList.populate());
 
 // Class style orignial code
 
