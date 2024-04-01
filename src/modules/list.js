@@ -1,3 +1,5 @@
+let lists = [];
+
 const createList = (name = 'New List') => {
   
   let taskList = [];
@@ -9,12 +11,7 @@ const createList = (name = 'New List') => {
     taskList.splice(index, 1);
   };
 
-  return {
-    name,
-    taskList,
-    addTask,
-    removeTask,
-  };
+  lists.push({ name, taskList, addTask, removeTask});
 };
 
-export default createList;
+export { createList, lists };
