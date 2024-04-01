@@ -1,6 +1,7 @@
 import { format } from "date-fns";
 import createList from "./modules/list.js"; 
 import createTask from "./modules/task.js";
+import './style.css';
 
 // TODO: DOM manipulation
 const contentDiv = document.getElementById('content');
@@ -26,11 +27,13 @@ addTaskButton.addEventListener('click', () => {
   const priorityCell = document.createElement('td');
   const statusCell = document.createElement('td');
   const statusButton = document.createElement('button');
+  statusButton.setAttribute('type', 'radio');
+  statusButton.classList.add('status-button');
 
   descriptionCell.textContent = newTask.description;
   dueDateCell.textContent = newTask.dueDate;
   priorityCell.textContent = newTask.priority;
-  statusCell.textContent = newTask.status;
+  statusCell.appendChild(statusButton);
 
   tableRow.appendChild(descriptionCell);
   tableRow.appendChild(dueDateCell);

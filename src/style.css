@@ -1,0 +1,9 @@
+.status-button {
+  width: 10px;
+  height: 10px;
+};
+
+button {
+  background-color: green;
+  color: white;
+}
