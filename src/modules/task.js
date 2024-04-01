@@ -12,10 +12,6 @@ const createTask = (description, dueDate = new Date(), priority = 0, status = fa
         task.description = newDescription;
       },
       dueDate(newDueDate) {
-        let currentDate = Date.now();
-        if (newDueDate < currentDate) {
-          throw Error('Due date cannot be in the past.');
-        };
         task.dueDate = newDueDate;
       },
       priority(newPriority) {
