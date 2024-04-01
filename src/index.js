@@ -7,7 +7,7 @@ import './style.css';
 const contentDiv = document.getElementById('content');
 const addTaskButton = document.createElement('button');
 addTaskButton.textContent = '+';
-addTaskButton.classList.add('add-task-button');
+addTaskButton.id = 'add-task-button';
 addTaskButton.addEventListener('click', () => {
   let description = prompt('Enter task description:');
   let dueDate = prompt('Enter due date (YYYY-MM-DD):');

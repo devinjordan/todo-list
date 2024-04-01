@@ -1,9 +1,10 @@
 .status-button {
   width: 10px;
   height: 10px;
-};
+  border: 5px solid red;
+}
 
-button {
-  background-color: green;
-  color: white;
+#add-task-button {
+  background: none;
+  border: 5px solid red;
 }
