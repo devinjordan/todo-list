@@ -1,3 +1,10 @@
+@font-face {
+  font-family: "Cutive-Mono";
+  src: url('./CutiveMono-Regular.ttf') format('ttf');
+  font-weight: 600;
+  font-style: normal;
+}
+
 .status-button {
   width: 10px;
   height: 10px;
@@ -7,4 +14,9 @@
 #add-task-button {
   background: none;
   border: 5px solid red;
+}
+
+h1 {
+  font-family: "Cutive-Mono", monospace;
+  font-weight: 300;
 }
