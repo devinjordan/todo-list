@@ -1,4 +1,4 @@
-// import { format } from "date-fns";
+import { format } from "date-fns";
 import createList from "./modules/list.js"; 
 import createTask from "./modules/task.js";
 
@@ -8,12 +8,38 @@ const addTaskButton = document.createElement('button');
 addTaskButton.textContent = '+';
 addTaskButton.classList.add('add-task-button');
 addTaskButton.addEventListener('click', () => {
-  const newTask = createTask('New Task');
+  let description = prompt('Enter task description:');
+  let dueDate = prompt('Enter due date (YYYY-MM-DD):');
+  let priority = prompt('Set priority (0-2):');
+
+  const newTask = createTask(description, new Date(dueDate), priority);
   defaultList.addTask(newTask);
 
   const taskChild = document.createElement('p');
   taskChild.textContent = newTask.description;
   contentDiv.appendChild(taskChild);
+  
+  const table = document.createElement('table');
+  const tableRow = document.createElement('tr');
+  const descriptionCell = document.createElement('td');
+  const dueDateCell = document.createElement('td');
+  const priorityCell = document.createElement('td');
+  const statusCell = document.createElement('td');
+  const statusButton = document.createElement('button');
+
+  descriptionCell.textContent = newTask.description;
+  dueDateCell.textContent = newTask.dueDate;
+  priorityCell.textContent = newTask.priority;
+  statusCell.textContent = newTask.status;
+
+  tableRow.appendChild(descriptionCell);
+  tableRow.appendChild(dueDateCell);
+  tableRow.appendChild(priorityCell);
+  tableRow.appendChild(statusCell);
+
+  table.appendChild(tableRow);
+
+  contentDiv.appendChild(table);
 });
 contentDiv.appendChild(addTaskButton);
 
