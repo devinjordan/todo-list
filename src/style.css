@@ -16,6 +16,9 @@ body {
   margin: 0;
   padding: 0;
   background-color: var(--background);
+  display: grid;
+  grid-template-rows: 1fr 7fr;
+  height: 100vh;
 }
 
 #menu {
@@ -44,4 +47,41 @@ header {
   border-bottom: 1px solid var(--accent);
   color: var(--secondary);
   background-color: var(--primary);
+  align-items: center;
+}
+
+main {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+
+}
+
+#lists {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  border-right: 2px solid var(--primary);
+  height: 100%;
+}
+
+.list-button {
+  background-color: var(--accent);
+  border: none;
+  color: var(--secondary);
+  height: fit-content;
+  font-size: 2vh;
+  font-family: "Cutive-Mono", monospace;
+  border-radius: 2vh;
+  padding: .5vh;
+  margin: 1vh;
+}
+
+#add-list-button {
+  background: none;
+  border: none;
+  color: var(--accent);
+  font-size: 2.5vh;
+  font-family: "Cutive-Mono", monospace;
+  margin-top: 1vh;
 }
