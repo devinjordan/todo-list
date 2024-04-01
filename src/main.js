@@ -1,6 +1,5 @@
 import createList from "./modules/list.js"; 
 import createTask from "./modules/task.js";
-import modifyTask from "./modules/modify.js";
 
 // TODO: DOM manipulation
 
