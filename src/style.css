@@ -25,7 +25,7 @@ body {
 }
 
 #menu svg {
-  fill: var(--primary);
+  fill: var(--secondary);
 }
 
 #menu svg:hover {
@@ -40,7 +40,8 @@ h1 {
 
 header {
   display: flex;
-  margin-left: 1vw;
-  border-bottom: 1px solid #cef1f7;
-  color: var(--primary);
+  /* margin-left: 1vw; */
+  border-bottom: 1px solid var(--accent);
+  color: var(--secondary);
+  background-color: var(--primary);
 }
