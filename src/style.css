@@ -5,24 +5,42 @@
   font-style: normal;
 }
 
-.status-button {
-  width: 10px;
-  height: 10px;
-  border: 5px solid red;
+:root {
+  --primary: #7A403E;
+  --secondary: #F89700;
+  --accent: #9F2B00;
+  --background: #D8CD9D;
 }
 
-#add-task-button {
-  background: none;
-  border: 5px solid red;
-}
-
-h1 {
-  font-family: "Cutive-Mono", monospace;
-  font-weight: 300;
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--background);
 }
 
 #menu {
   border: none;
   background: none;
   cursor: pointer;
+}
+
+#menu svg {
+  fill: var(--primary);
+}
+
+#menu svg:hover {
+  fill: #008da5;
+}
+
+h1 {
+  font-family: "Cutive-Mono", monospace;
+  font-weight: 600;
+  margin-left: 1vw;
+}
+
+header {
+  display: flex;
+  margin-left: 1vw;
+  border-bottom: 1px solid #cef1f7;
+  color: var(--primary);
 }
