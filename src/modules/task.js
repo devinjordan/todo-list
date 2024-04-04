@@ -17,8 +17,8 @@ const createTask = (description, dueDate = new Date(), priority = 0, status = fa
       priority(newPriority) {
         task.priority = newPriority;
       },
-      status(newStatus) {
-        task.status = newStatus;
+      status() {
+        task.status = !task.status;
       },
     },
   };
