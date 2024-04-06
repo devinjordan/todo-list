@@ -56,12 +56,15 @@ main {
 
 }
 
-#lists {
+.lists-container {
+  border-right: 2px solid var(--primary);
+}
+
+.lists-container, #lists {
   display: flex;
   flex-direction: column;
   margin: 0;
   padding: 0;
-  border-right: 2px solid var(--primary);
   height: 100%;
 }
 
