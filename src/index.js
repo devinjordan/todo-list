@@ -42,6 +42,12 @@ const renderLists = () => {
 const renderTasks = (list, taskList) => {
   let currentList = list;
   tasksDiv.innerHTML = '';
+
+  let addTaskButton = document.createElement('button');
+  addTaskButton.textContent = '+ Add Task';
+  addTaskButton.id = 'add-task-button';
+  tasksDiv.appendChild(addTaskButton);
+
   for (let task of taskList) {
     const taskContainer = document.createElement('div');
     taskContainer.classList.add('task');
@@ -70,6 +76,83 @@ const renderTasks = (list, taskList) => {
         taskPriority.textContent =  'High';
         break;
     };
+
+    addTaskButton.addEventListener('click', () => {
+      addTaskButton.style.visibility = 'hidden';
+
+    // Create the form elements
+      const taskForm = document.createElement('form');
+      const taskDescriptionInput = document.createElement('input');
+      const taskDueDateInput = document.createElement('input');
+      const taskPrioritySelect = document.createElement('select');
+      const priorityPlaceholder = document.createElement('option');
+      const lowPriorityOption = document.createElement('option');
+      const mediumPriorityOption = document.createElement('option');
+      const highPriorityOption = document.createElement('option');
+      const submitButton = document.createElement('button');
+
+      // Set the input types and placeholders
+      taskDescriptionInput.type = 'text';
+      taskDescriptionInput.placeholder = 'Task description...';
+      taskDueDateInput.type = 'date';
+      taskDueDateInput.placeholder = 'Due date (MM/DD/YYYY)';
+      taskPrioritySelect.name = 'priority';
+      taskPrioritySelect.id = 'priority';
+      priorityPlaceholder.value = '';
+      priorityPlaceholder.textContent = 'Priority';
+      lowPriorityOption.value = 0;
+      lowPriorityOption.textContent = 'Low';
+      mediumPriorityOption.value = 1;
+      mediumPriorityOption.textContent = 'Medium';
+      highPriorityOption.value = 2;
+      highPriorityOption.textContent = 'High';
+      submitButton.type = 'submit';
+      submitButton.textContent = 'Add Task';
+
+      // Append the inputs and button to the form
+      taskForm.appendChild(taskDescriptionInput);
+      taskForm.appendChild(taskDueDateInput);
+      taskForm.appendChild(taskPrioritySelect);
+
+
+      taskPrioritySelect.appendChild(priorityPlaceholder);
+      taskPrioritySelect.appendChild(lowPriorityOption);
+      taskPrioritySelect.appendChild(mediumPriorityOption);
+      taskPrioritySelect.appendChild(highPriorityOption);
+      taskPrioritySelect.addEventListener('click', () => {
+        priorityPlaceholder.remove();
+      });
+      taskForm.appendChild(submitButton);
+      tasksDiv.prepend(taskForm);
+
+      // Listen for the form's submit event
+      taskForm.addEventListener('submit', (event) => {
+        // Prevent the form from submitting and the page from reloading
+        event.preventDefault();
+
+        // Get the input values
+        const taskDescription = taskDescriptionInput.value;
+        const taskDueDate = new Date(taskDueDateInput.value);
+        const taskPriority = parseInt(taskPrioritySelect.value);
+
+        // Create a new task and add it to the list
+        const newTask = createTask(taskDescription, taskDueDate, taskPriority);
+        list.addTask(newTask);
+
+        // Update the UI
+        renderTasks(currentList, currentList.taskList);
+
+        // Clear the input fields
+        taskDescriptionInput.value = '';
+        taskDueDateInput.value = '';
+        taskPrioritySelect.value = '';
+
+        // Remove the form
+        taskForm.remove();
+
+        addTaskButton.style.visibility = 'visible';
+      });
+    });
 
     taskStatus.textContent = task.status ? 'Undo' : 'Done';
     taskStatus.addEventListener('click', () => {
