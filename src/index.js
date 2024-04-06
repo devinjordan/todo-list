@@ -14,7 +14,7 @@ lists[0].addTask(newTask);
 
 const renderLists = () => {
   listsDiv.innerHTML = '';
-
+  console.log(lists[0].taskList);
   const addListButton = document.createElement('button');
   addListButton.textContent = '+ Add List';
   addListButton.id = 'add-list-button';
@@ -40,10 +40,11 @@ const renderLists = () => {
 };
 
 const renderTasks = (list, taskList) => {
+  let currentList = list;
   tasksDiv.innerHTML = '';
   for (let task of taskList) {
-    const taskDiv = document.createElement('div');
-    taskDiv.classList.add('task');
+    const taskContainer = document.createElement('div');
+    taskContainer.classList.add('task');
 
     const taskTitle = document.createElement('h3');
     const taskDueDate = document.createElement('p');
@@ -55,8 +56,9 @@ const renderTasks = (list, taskList) => {
 
     // Task information
     // If a task is done, it will be displayed with a line-through
-    taskTitle.textContent = task.status ? strike(task.description) : task.description;
-    taskDueDate.textContent = format(task.dueDate, 'MM/dd/yyyy');
+    taskTitle.textContent = task.description;
+    taskTitle.style.textDecoration = task.status ? 'line-through' : 'none';
+    // taskDueDate.textContent = format(task.dueDate, 'MM/dd/yyyy');
     switch (task.priority) {
       case 0:
         taskPriority.textContent =  'Low';
@@ -73,23 +75,23 @@ const renderTasks = (list, taskList) => {
     taskStatus.addEventListener('click', () => {
       task.modify.status();
       // TODO (optional): functionality to move to 'completed tasks'
-      renderTasks();
+      renderTasks(currentList, currentList.taskList);
     });
 
     removeTask.textContent = '❌';
     removeTask.addEventListener('click', () => {
       list.removeTask(task);
-      renderTasks();
+      renderTasks(currentList, currentList.taskList);
     });
 
-    taskDiv.appendChild(taskTitle);
-    taskDiv.appendChild(taskDueDate);
-    taskDiv.appendChild(taskPriority);
-    taskDiv.appendChild(taskStatus);
-    taskDiv.appendChild(removeTask);
+    taskContainer.appendChild(taskTitle);
+    taskContainer.appendChild(taskDueDate);
+    taskContainer.appendChild(taskPriority);
+    taskContainer.appendChild(taskStatus);
+    taskContainer.appendChild(removeTask);
 
-    tasksDiv.appendChild(taskDiv);
+    tasksDiv.appendChild(taskContainer);
   };
 };
 
-renderLists();
+renderLists(lists[0], lists[0].taskList);
