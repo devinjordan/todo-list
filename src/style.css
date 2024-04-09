@@ -12,6 +12,10 @@
   --background: #D8CD9D;
 }
 
+::backdrop {
+  background-color: rgba(0, 0, 0, 0.75);
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -87,4 +91,8 @@ main {
   font-size: 2.5vh;
   font-family: "Cutive-Mono", monospace;
   margin-top: 1vh;
+}
+
+#add-task-button {
+  visibility: hidden;
 }
