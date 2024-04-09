@@ -1,7 +1,11 @@
+import { format } from 'date-fns';
+
 const createTask = (description, dueDate = new Date(), priority = 0, status = false) => {
+  const time = '18:00:00.000';
   let task = {
     description,
-    dueDate,
+    // TODO: Fix date issue. Format API being called multiple times when creating more than one task. Apparently a time is required when creating a new Date object.
+    dueDate: format(dueDate, 'MM/dd/yyyy'),
     priority,
     status,
     modify: {
@@ -12,7 +16,7 @@ const createTask = (description, dueDate = new Date(), priority = 0, status = fa
         task.description = newDescription;
       },
       dueDate(newDueDate) {
-        task.dueDate = newDueDate;
+        task.dueDate = format(newDueDate, 'MM/dd/yyyy');
       },
       priority(newPriority) {
         task.priority = newPriority;

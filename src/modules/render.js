@@ -27,6 +27,7 @@ export const renderLists = (listsDiv, title, lists) => {
 };
 
 export const renderTasks = (list, taskList) => {
+  console.table(list.taskList);
   const tasksDiv = document.getElementById('tasks');
   let currentList = list;
   tasksDiv.innerHTML = '';
@@ -51,6 +52,7 @@ export const renderTasks = (list, taskList) => {
       const newTask = createTask(taskDescription, new Date(taskDueDate), taskPriority);
       list.addTask(newTask);
       renderTasks(currentList, currentList.taskList);
+      console.log(taskDueDate);
       taskForm.reset();
       addTaskDialog.close();
     });
@@ -72,7 +74,7 @@ export const renderTasks = (list, taskList) => {
     // If a task is done, it will be displayed with a line-through
     taskTitle.textContent = task.description;
     taskTitle.style.textDecoration = task.status ? 'line-through' : 'none';
-    taskDueDate.textContent = format(task.dueDate, 'MM/dd/yyyy');
+    taskDueDate.textContent = task.dueDate;
     taskPriority.textContent = task.priority;
 
     taskStatus.textContent = task.status ? 'Undo' : 'Done';
