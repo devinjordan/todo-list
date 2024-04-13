@@ -1,62 +1,31 @@
 import createTask from "./task";
-import { createList } from "./list";
+import { createList, lists } from "./list";
 import { format } from "date-fns";
-
-let listenersAdded = false;
 
 export const renderLists = (listsDiv, title, lists) => {
   listsDiv.innerHTML = '';
-  const addListButton = document.getElementById('add-list-button');
 
-  for (let list of lists) {
+  for (let i = 0; i < lists.length; i++) {
+    const list = lists[i];
     const listButton = document.createElement('button');
     listButton.classList.add('list-button');
     listButton.textContent = list.name;
+    listButton.dataset.index = i;
     listButton.addEventListener('click', () => {
       title.textContent = list.name;
+      listButton.classList.add('active');
       renderTasks(list, list.taskList);
     });
     listsDiv.appendChild(listButton);
   };
-
-  addListButton.addEventListener('click', () => {
-    const listName = prompt('Enter the name of the new list:');
-    createList(listName);
-    renderLists(listsDiv, title, lists);
-  });
 };
 
 export const renderTasks = (list, taskList) => {
-  console.table(list.taskList);
   const tasksDiv = document.getElementById('tasks');
-  let currentList = list;
   tasksDiv.innerHTML = '';
 
-  const addTaskDialog = document.getElementById('add-task-dialog');
   let addTaskButton = document.getElementById('add-task-button');
   addTaskButton.style.visibility = 'visible';
-
-  const taskForm = document.getElementById('task-form');
-  const submitTaskButton = document.getElementById('submit-task');
-
-  if (!listenersAdded) {
-    addTaskButton.addEventListener('click', () => {
-      addTaskDialog.showModal();
-    });
-
-    submitTaskButton.addEventListener('click', (event) => {
-      event.preventDefault();
-      const taskDescription = document.getElementById('task-description').value;
-      const taskDueDate = document.getElementById('task-due-date').value;
-      const taskPriority = document.getElementById('task-priority').value;
-      const newTask = createTask(taskDescription, new Date(taskDueDate), taskPriority);
-      list.addTask(newTask);
-      renderTasks(currentList, currentList.taskList);
-      console.log(taskDueDate);
-      taskForm.reset();
-      addTaskDialog.close();
-    });
-  };
 
   for (let task of taskList) {
     const taskContainer = document.createElement('div');
@@ -100,3 +69,45 @@ export const renderTasks = (list, taskList) => {
     tasksDiv.appendChild(taskContainer);
   };
 };
+
+export const addListners = (lists) => {
+  const addListButton = document.getElementById('add-list-button');
+  const addTaskButton = document.getElementById('add-task-button');
+  const submitTaskButton = document.getElementById('submit-task');
+
+  const addTaskDialog = document.getElementById('add-task-dialog');
+  const taskForm = document.getElementById('task-form');
+
+  addListButton.addEventListener('click', () => {
+    const listName = prompt('Enter the name of the new list:');
+    const listsDiv = document.getElementById('lists');
+    const title = document.getElementById('title');
+
+    createList(listName);
+    renderLists(listsDiv, title, lists);
+  });
+
+  addTaskButton.addEventListener('click', () => {
+    addTaskDialog.showModal();
+  });
+
+  submitTaskButton.addEventListener('click', (event) => {
+    event.preventDefault();
+    const currentList = getCurrentList();
+    const taskDescription = document.getElementById('task-description').value;
+    const taskDueDate = document.getElementById('task-due-date').value;
+    const taskPriority = document.getElementById('task-priority').value;
+    const newTask = createTask(taskDescription, new Date(taskDueDate), taskPriority);
+    currentList.addTask(newTask);
+    renderTasks(currentList, currentList.taskList);
+    taskForm.reset();
+    addTaskDialog.close();
+  });
+};
+
+const getCurrentList = () => {
+  const listsDiv = document.getElementById('lists');
+  const activeList = listsDiv.querySelector('.active');
+  const index = activeList.dataset.index;
+  return lists[index];
+}
