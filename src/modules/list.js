@@ -3,6 +3,8 @@ let lists = [];
 const createList = (name = 'New List') => {
   
   let taskList = [];
+  let completedTasks = [];
+  
   const addTask = (task) => {
     taskList.push(task);
   };
@@ -11,7 +13,7 @@ const createList = (name = 'New List') => {
     taskList.splice(index, 1);
   };
 
-  lists.push({ name, taskList, addTask, removeTask});
+  lists.push({ name, taskList, completedTasks, addTask, removeTask});
 };
 
 export { createList, lists };

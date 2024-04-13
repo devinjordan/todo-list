@@ -54,10 +54,21 @@ export const renderTasks = (list, taskList) => {
       const currentList = getCurrentList();
       task.modify.status();
       // TODO (optional): functionality to move to 'completed tasks'
+      if (task.status) {
+        let index = currentList.taskList.indexOf(task);
+        if (index > -1) {
+          currentList.taskList.splice(index, 1);
+          currentList.completedTasks.push(task);
+        } else {
+          index = currentList.completedTasks.indexOf(task);
+          currentList.completedTasks.splice(index, 1);
+          currentList.taskList.push(task);
+        };
+      };
+
       renderTasks(currentList, currentList.taskList);
     });
 
-    // TODO: Not functioning properly
     removeTask.textContent = '❌';
     removeTask.addEventListener('click', () => {
       const currentList = getCurrentList();
@@ -72,6 +83,36 @@ export const renderTasks = (list, taskList) => {
     taskContainer.appendChild(removeTask);
 
     tasksDiv.appendChild(taskContainer);
+  };
+
+  for (let task of list.completedTasks) {
+    const completedTaskContainer = document.createElement('div');
+
+    const completedTaskTitle = document.createElement('h3');
+    const completedTaskDueDate = document.createElement('p');
+    const completedTaskStatus = document.createElement('p');
+    const undoButton = document.createElement('button');
+
+    completedTaskTitle.textContent = task.description;
+    completedTaskDueDate.textContent = task.dueDate;
+    completedTaskStatus.textContent = task.status;
+    undoButton.textContent = 'Undo';
+
+    undoButton.addEventListener('click', () => {
+      const currentList = getCurrentList();
+      task.modify.status();
+      let index = currentList.completedTasks.indexOf(task);
+      currentList.completedTasks.splice(index, 1);
+      currentList.taskList.push(task);
+      renderTasks(currentList, currentList.taskList);
+    });
+
+    completedTaskContainer.appendChild(completedTaskTitle);
+    completedTaskContainer.appendChild(completedTaskDueDate);
+    completedTaskContainer.appendChild(completedTaskStatus);
+    completedTaskContainer.appendChild(undoButton);
+
+    tasksDiv.appendChild(completedTaskContainer);
   };
 };
 
