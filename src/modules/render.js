@@ -45,15 +45,13 @@ export const renderTasks = (list, taskList) => {
     // Task information
     // If a task is done, it will be displayed with a line-through
     taskTitle.textContent = task.description;
-    taskTitle.style.textDecoration = task.status ? 'line-through' : 'none';
     taskDueDate.textContent = task.dueDate;
     taskPriority.textContent = task.priority;
 
-    taskStatus.textContent = task.status ? 'Undo' : 'Done';
+    taskStatus.textContent = 'Done';
     taskStatus.addEventListener('click', () => {
       const currentList = getCurrentList();
       task.modify.status();
-      // TODO (optional): functionality to move to 'completed tasks'
       if (task.status) {
         let index = currentList.taskList.indexOf(task);
         if (index > -1) {
