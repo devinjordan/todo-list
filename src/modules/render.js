@@ -13,6 +13,9 @@ export const renderLists = (listsDiv, title, lists) => {
     listButton.dataset.index = i;
     listButton.addEventListener('click', () => {
       title.textContent = list.name;
+      for (let button of listsDiv.children) {
+        button.classList.remove('active');
+      };
       listButton.classList.add('active');
       renderTasks(list, list.taskList);
     });
@@ -48,6 +51,7 @@ export const renderTasks = (list, taskList) => {
 
     taskStatus.textContent = task.status ? 'Undo' : 'Done';
     taskStatus.addEventListener('click', () => {
+      const currentList = getCurrentList();
       task.modify.status();
       // TODO (optional): functionality to move to 'completed tasks'
       renderTasks(currentList, currentList.taskList);
@@ -56,6 +60,7 @@ export const renderTasks = (list, taskList) => {
     // TODO: Not functioning properly
     removeTask.textContent = '❌';
     removeTask.addEventListener('click', () => {
+      const currentList = getCurrentList();
       list.removeTask(task);
       renderTasks(currentList, currentList.taskList);
     });
