@@ -7,7 +7,6 @@ export const renderLists = (listsDiv, title, lists) => {
   for (let i = 0; i < lists.length; i++) {
     const list = lists[i];
     const listButton = document.createElement('button');
-    const headers = document.querySelector('.headers');
 
     listButton.classList.add('list-button');
     listButton.textContent = list.name;
@@ -35,25 +34,52 @@ export const renderTasks = (list, taskList) => {
 
   const headers = document.createElement('tr');
   headers.classList.add('headers');
+
+  const completedHeaders = document.createElement('tr');
+  completedHeaders.classList.add('headers');
+
   const taskHeader = document.createElement('th');
   const dueDateHeader = document.createElement('th');
   const priorityHeader = document.createElement('th');
   const actionsHeader = document.createElement('th');
   actionsHeader.colSpan = 2;
 
+  const completeActionsHeader = document.createElement('th');
+
   taskHeader.textContent = 'Task';
   dueDateHeader.textContent = 'Due Date';
   priorityHeader.textContent = 'Priority';
   actionsHeader.textContent = 'Actions';
+  completeActionsHeader.textContent = 'Actions';
 
   headers.appendChild(taskHeader);
   headers.appendChild(dueDateHeader);
   headers.appendChild(priorityHeader);
   headers.appendChild(actionsHeader);
 
-  table.appendChild(headers);
+  completedHeaders.appendChild(taskHeader.cloneNode(true));
+  completedHeaders.appendChild(dueDateHeader.cloneNode(true));
+  completedHeaders.appendChild(completeActionsHeader);
+
+  if (list.taskList.length > 0) {
+    table.appendChild(headers);
+  };
+
+  const completedTable = document.createElement('table');
+  completedTable.appendChild(completedHeaders);
+
+  const completedTableTitle = document.createElement('h2');
+  completedTableTitle.textContent = 'Completed Tasks';
+  completedTableTitle.style.visibility = 'hidden';
+
+  if (list.completedTasks.length > 0) {
+    completedTableTitle.style.visibility = 'visible';
+  };
 
   tasksDiv.appendChild(table);
+  tasksDiv.appendChild(completedTableTitle);
+
+  table.appendChild(headers);
 
   for (let task of taskList) {
     const taskRow = document.createElement('tr');
@@ -114,11 +140,12 @@ export const renderTasks = (list, taskList) => {
   };
 
   for (let task of list.completedTasks) {
-    const completedTaskContainer = document.createElement('div');
-    completedTaskContainer.classList.add('complete-tasks');
+    const completedTask = document.createElement('tr');
+    completedTask.classList.add('completed-task');
 
-    const completedTaskTitle = document.createElement('h3');
-    const completedTaskDueDate = document.createElement('p');
+    const completedTaskTitle = document.createElement('td');
+    const completedTaskDueDate = document.createElement('td');
+    const undoButtonCell = document.createElement('td');
     const undoButton = document.createElement('button');
 
     completedTaskTitle.textContent = task.description;
@@ -134,11 +161,15 @@ export const renderTasks = (list, taskList) => {
       renderTasks(currentList, currentList.taskList);
     });
 
-    completedTaskContainer.appendChild(completedTaskTitle);
-    completedTaskContainer.appendChild(completedTaskDueDate);
-    completedTaskContainer.appendChild(undoButton);
+    undoButtonCell.appendChild(undoButton);
 
-    tasksDiv.appendChild(completedTaskContainer);
+    completedTask.appendChild(completedTaskTitle);
+    completedTask.appendChild(completedTaskDueDate);
+    completedTask.appendChild(undoButtonCell);
+
+    completedTable.appendChild(completedTask);
+
+    tasksDiv.appendChild(completedTable);
   };
 };
 
