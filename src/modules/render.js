@@ -124,7 +124,7 @@ export const renderTasks = (list, taskList) => {
           currentList.taskList.push(task);
         };
       };
-
+      localStorage.setItem('lists', JSON.stringify(lists));
       renderTasks(currentList, currentList.taskList);
     });
 
@@ -132,6 +132,7 @@ export const renderTasks = (list, taskList) => {
     removeTask.addEventListener('click', () => {
       const currentList = getCurrentList();
       list.removeTask(task);
+      localStorage.setItem('lists', JSON.stringify(lists));
       renderTasks(currentList, currentList.taskList);
     });
 
@@ -166,6 +167,7 @@ export const renderTasks = (list, taskList) => {
       let index = currentList.completedTasks.indexOf(task);
       currentList.completedTasks.splice(index, 1);
       currentList.taskList.push(task);
+      localStorage.setItem('lists', JSON.stringify(lists));
       renderTasks(currentList, currentList.taskList);
     });
 
@@ -195,6 +197,8 @@ export const addListners = (lists) => {
     const title = document.getElementById('title');
 
     createList(listName);
+    localStorage.setItem('lists', JSON.stringify(lists));
+
     renderLists(listsDiv, title, lists);
   });
 
@@ -210,6 +214,7 @@ export const addListners = (lists) => {
     const taskPriority = document.getElementById('task-priority').value;
     const newTask = createTask(taskDescription, new Date(taskDueDate), taskPriority);
     currentList.addTask(newTask);
+    localStorage.setItem('lists', JSON.stringify(lists));
     renderTasks(currentList, currentList.taskList);
     taskForm.reset();
     addTaskDialog.close();
@@ -221,4 +226,4 @@ const getCurrentList = () => {
   const activeList = listsDiv.querySelector('.active');
   const index = activeList.dataset.index;
   return lists[index];
-}
+};
