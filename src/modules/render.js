@@ -1,6 +1,5 @@
 import createTask from "./task";
 import { createList, lists } from "./list";
-import { format } from "date-fns";
 
 export const renderLists = (listsDiv, title, lists) => {
   listsDiv.innerHTML = '';
@@ -8,10 +7,13 @@ export const renderLists = (listsDiv, title, lists) => {
   for (let i = 0; i < lists.length; i++) {
     const list = lists[i];
     const listButton = document.createElement('button');
+    const headers = document.querySelector('.headers');
+
     listButton.classList.add('list-button');
     listButton.textContent = list.name;
     listButton.dataset.index = i;
     listButton.addEventListener('click', () => {
+      headers.style.visibility = 'visible';
       title.textContent = list.name;
       for (let button of listsDiv.children) {
         button.classList.remove('active');
@@ -48,7 +50,7 @@ export const renderTasks = (list, taskList) => {
     taskDueDate.textContent = task.dueDate;
     taskPriority.textContent = task.priority;
 
-    taskStatus.textContent = 'Done';
+    taskStatus.textContent = 'Mark Complete';
     taskStatus.addEventListener('click', () => {
       const currentList = getCurrentList();
       task.modify.status();
@@ -67,7 +69,7 @@ export const renderTasks = (list, taskList) => {
       renderTasks(currentList, currentList.taskList);
     });
 
-    removeTask.textContent = '❌';
+    removeTask.textContent = 'Remove';
     removeTask.addEventListener('click', () => {
       const currentList = getCurrentList();
       list.removeTask(task);
@@ -85,15 +87,14 @@ export const renderTasks = (list, taskList) => {
 
   for (let task of list.completedTasks) {
     const completedTaskContainer = document.createElement('div');
+    completedTaskContainer.classList.add('complete-tasks');
 
     const completedTaskTitle = document.createElement('h3');
     const completedTaskDueDate = document.createElement('p');
-    const completedTaskStatus = document.createElement('p');
     const undoButton = document.createElement('button');
 
     completedTaskTitle.textContent = task.description;
     completedTaskDueDate.textContent = task.dueDate;
-    completedTaskStatus.textContent = task.status;
     undoButton.textContent = 'Undo';
 
     undoButton.addEventListener('click', () => {
@@ -107,7 +108,6 @@ export const renderTasks = (list, taskList) => {
 
     completedTaskContainer.appendChild(completedTaskTitle);
     completedTaskContainer.appendChild(completedTaskDueDate);
-    completedTaskContainer.appendChild(completedTaskStatus);
     completedTaskContainer.appendChild(undoButton);
 
     tasksDiv.appendChild(completedTaskContainer);
