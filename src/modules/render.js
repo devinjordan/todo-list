@@ -31,16 +31,42 @@ export const renderTasks = (list, taskList) => {
   let addTaskButton = document.getElementById('add-task-button');
   addTaskButton.style.visibility = 'visible';
 
-  for (let task of taskList) {
-    const taskContainer = document.createElement('div');
-    taskContainer.classList.add('task');
+  const table = document.createElement('table');
 
-    const taskTitle = document.createElement('h3');
-    const taskDueDate = document.createElement('p');
-    const taskPriority = document.createElement('p');
+  const headers = document.createElement('tr');
+  headers.classList.add('headers');
+  const taskHeader = document.createElement('th');
+  const dueDateHeader = document.createElement('th');
+  const priorityHeader = document.createElement('th');
+  const actionsHeader = document.createElement('th');
+  actionsHeader.colSpan = 2;
+
+  taskHeader.textContent = 'Task';
+  dueDateHeader.textContent = 'Due Date';
+  priorityHeader.textContent = 'Priority';
+  actionsHeader.textContent = 'Actions';
+
+  headers.appendChild(taskHeader);
+  headers.appendChild(dueDateHeader);
+  headers.appendChild(priorityHeader);
+  headers.appendChild(actionsHeader);
+
+  table.appendChild(headers);
+
+  tasksDiv.appendChild(table);
+
+  for (let task of taskList) {
+    const taskRow = document.createElement('tr');
+    taskRow.classList.add('task');
+
+    const taskTitle = document.createElement('td');
+    const taskDueDate = document.createElement('td');
+    const taskPriority = document.createElement('td');
 
     // Actions
+    const taskStatusCell = document.createElement('td');
     const taskStatus = document.createElement('button');
+    const removeTaskCell = document.createElement('td');
     const removeTask = document.createElement('button');
 
     // Task information
@@ -75,13 +101,16 @@ export const renderTasks = (list, taskList) => {
       renderTasks(currentList, currentList.taskList);
     });
 
-    taskContainer.appendChild(taskTitle);
-    taskContainer.appendChild(taskDueDate);
-    taskContainer.appendChild(taskPriority);
-    taskContainer.appendChild(taskStatus);
-    taskContainer.appendChild(removeTask);
+    taskStatusCell.appendChild(taskStatus);
+    removeTaskCell.appendChild(removeTask);
 
-    tasksDiv.appendChild(taskContainer);
+    taskRow.appendChild(taskTitle);
+    taskRow.appendChild(taskDueDate);
+    taskRow.appendChild(taskPriority);
+    taskRow.appendChild(taskStatusCell);
+    taskRow.appendChild(removeTaskCell);
+
+    table.appendChild(taskRow);
   };
 
   for (let task of list.completedTasks) {
