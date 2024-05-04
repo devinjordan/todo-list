@@ -8,8 +8,15 @@ const listsDiv = document.getElementById('lists');
 const title = document.getElementById('title');
 
 createList('Default List');
-const newTask = createTask('Groceries', new Date(2021, 8, 1), 'Low');
-lists[0].addTask(newTask);
+const groceriesDemoTask = createTask('Groceries', new Date(2021, 8, 1), 'Low');
+
+const trashDemoTask = createTask('Take out the trash', new Date(2021, 8, 2), 'Medium');
+
+const billsDemoTask = createTask('Pay bills', new Date(2021, 8, 3), 'High');
+
+lists[0].addTask(groceriesDemoTask);
+lists[0].addTask(trashDemoTask);
+lists[0].addTask(billsDemoTask);
 
 renderLists(listsDiv, title, lists);
 addListners(lists);
