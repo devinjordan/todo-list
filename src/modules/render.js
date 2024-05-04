@@ -13,7 +13,6 @@ export const renderLists = (listsDiv, title, lists) => {
     listButton.textContent = list.name;
     listButton.dataset.index = i;
     listButton.addEventListener('click', () => {
-      headers.style.visibility = 'visible';
       title.textContent = list.name;
       for (let button of listsDiv.children) {
         button.classList.remove('active');
