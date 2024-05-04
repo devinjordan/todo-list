@@ -1,6 +1,14 @@
 import createTask from "./task";
 import { createList, lists } from "./list";
 
+export const menuAction = () => {
+  const menu = document.getElementById('menu');
+  menu.addEventListener('click', () => {
+    const listsDiv = document.querySelector('.lists-container');
+    listsDiv.classList.toggle('hidden');
+  });
+};
+
 export const renderLists = (listsDiv, title, lists) => {
   listsDiv.innerHTML = '';
 

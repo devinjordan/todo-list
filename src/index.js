@@ -1,6 +1,6 @@
 import { lists, createList } from "./modules/list.js"; 
 import createTask from "./modules/task.js";
-import { renderLists, renderTasks, addListners } from "./modules/render.js";
+import { renderLists, renderTasks, addListners, menuAction } from "./modules/render.js";
 import './style.css';
 
 // TODO: DOM manipulation
@@ -20,3 +20,4 @@ lists[0].addTask(billsDemoTask);
 
 renderLists(listsDiv, title, lists);
 addListners(lists);
+menuAction();
