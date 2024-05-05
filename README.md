@@ -2,4 +2,4 @@
 
 [Screenshot of Website](./screenshots/s1.jpg)
 
-[Live Preview]()
+[Live Preview](https://devinjordan.github.io/todo-list/)
