@@ -100,7 +100,7 @@ main.lists-minimized {
   color: var(--secondary);
 }
 
-#add-task-button {
+#add-task-button, #remove-list-button {
   visibility: hidden;
   border: none;
   background: none;
@@ -114,6 +114,15 @@ main.lists-minimized {
 
 #add-task-button:hover {
   color: var(--secondary);
+}
+
+#buttons-div {
+  display: flex;
+  justify-content: space-between;
+}
+
+#remove-list-button {
+  margin-right: 1rem;
 }
 
 .task {

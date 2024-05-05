@@ -41,6 +41,11 @@ export const renderTasks = (list, taskList) => {
   let addTaskButton = document.getElementById('add-task-button');
   addTaskButton.style.visibility = 'visible';
 
+  const removeListButton = document.getElementById('remove-list-button');
+  removeListButton.style.visibility = 'visible';
+  const currentList = getCurrentList();
+  removeListButton.textContent = `(-) Remove ${currentList.name}`;
+
   const table = document.createElement('table');
 
   const headers = document.createElement('tr');
@@ -188,6 +193,7 @@ export const renderTasks = (list, taskList) => {
 
 export const addListners = (lists) => {
   const addListButton = document.getElementById('add-list-button');
+  const removeListButton = document.getElementById('remove-list-button');
   const addTaskButton = document.getElementById('add-task-button');
   const submitTaskButton = document.getElementById('submit-task');
 
@@ -202,6 +208,16 @@ export const addListners = (lists) => {
     createList(listName);
     localStorage.setItem('lists', JSON.stringify(lists));
 
+    renderLists(listsDiv, title, lists);
+  });
+
+  removeListButton.addEventListener('click', () => {
+    const listsDiv = document.getElementById('lists');
+    const title = document.getElementById('title');
+    const activeList = listsDiv.querySelector('.active');
+    const index = activeList.dataset.index;
+    lists.splice(index, 1);
+    localStorage.setItem('lists', JSON.stringify(lists));
     renderLists(listsDiv, title, lists);
   });
 
