@@ -6,6 +6,9 @@ export const menuAction = () => {
   menu.addEventListener('click', () => {
     const listsDiv = document.querySelector('.lists-container');
     listsDiv.classList.toggle('hidden');
+
+    const main = document.querySelector('main');
+    main.classList.toggle('lists-minimized');
   });
 };
 
